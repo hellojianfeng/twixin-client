@@ -2,19 +2,22 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import * as frameModule from "tns-core-modules/ui/frame";
 import { Page } from "ui/page";
+import { action } from "ui/dialogs";
+import { LoginService, alert } from "../shared";
 import { SelectedIndexChangedEventData, TabView, TabViewItem } from "tns-core-modules/ui/tab-view";
 
 @Component({
     moduleId: module.id,
     selector: "gr-tabs",
     templateUrl: "./tabs.component.html",
+    styleUrls: ["./tabs-common.css", "./tabs.component.css"],
 })
 
 export class TabsComponent implements OnInit {
 
     private _title: string;
 
-    constructor(private router: Router, private page: Page) {
+    constructor(private router: Router, private page: Page, private loginService: LoginService) {
         //
     }
 
@@ -60,5 +63,24 @@ export class TabsComponent implements OnInit {
         const selectedTabViewItem = tabView.items[args.newIndex];
 
         this.title = selectedTabViewItem.title;
+    }
+
+    showMenu() {
+        action({
+          message: "What would you like to do?",
+          actions: ["Share", "Log Off"],
+          cancelButtonText: "Cancel"
+        }).then((result) => {
+          if (result === "Share") {
+            // this.share();
+          } else if (result === "Log Off") {
+            this.logoff();
+          }
+        });
+    }
+
+    logoff() {
+        this.loginService.logoff();
+        this.router.navigate(["/login"]);
     }
 }

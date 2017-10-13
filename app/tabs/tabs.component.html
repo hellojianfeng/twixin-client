@@ -1,4 +1,5 @@
 <ActionBar [title]="title">
+    <ActionItem icon="res://menu" ios.position="right" (tap)="showMenu()"></ActionItem>
 </ActionBar>
 <TabView #tabView class="tab-view" (selectedIndexChanged)="onSelectedIndexChanged($event)">
   <StackLayout *tabItem="{title:'Inbox', iconSource:'res://icon-inbox'}">
