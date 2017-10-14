@@ -8,7 +8,7 @@ import { SelectedIndexChangedEventData, TabView, TabViewItem } from "tns-core-mo
 
 @Component({
     moduleId: module.id,
-    selector: "gr-tabs",
+    selector: "tx-tabs",
     templateUrl: "./tabs.component.html",
     styleUrls: ["./tabs-common.css", "./tabs.component.css"],
 })
