@@ -18,4 +18,5 @@ export class BackendService {
   static set token(theToken: string) {
     setString("token", theToken);
   }
+
 }

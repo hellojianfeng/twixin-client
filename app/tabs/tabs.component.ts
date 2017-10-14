@@ -63,6 +63,12 @@ export class TabsComponent implements OnInit {
         const selectedTabViewItem = tabView.items[args.newIndex];
 
         this.title = selectedTabViewItem.title;
+
+        switch (args.newIndex) {
+            case 2:
+                this.router.navigate(["/tabs", { outlets: { contactoutlet: ["contacts"]}}]);
+                break;
+            }
     }
 
     showMenu() {
