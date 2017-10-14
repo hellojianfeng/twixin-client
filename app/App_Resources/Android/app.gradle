@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.groceries" 
+    applicationId = "com.twixin.Twixin" 
     
     //override supported platforms
     // ndk {
