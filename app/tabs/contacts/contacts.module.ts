@@ -10,6 +10,7 @@ import { ContactService } from "./contact.service";
 // import { SpaceService } from '../shared/services/space.service'
 import { UserService } from "../../shared/services/user.service";
 import { ContactsComponent } from "./contacts.component";
+import { ContactsAddFriendComponent } from "./contacts.addfriend.component";
 
 // import { routes } from './setting.routing';
 
@@ -25,6 +26,7 @@ import { ContactsComponent } from "./contacts.component";
 	],
 	declarations: [
 		ContactsComponent,
+		ContactsAddFriendComponent,
 	],
 	exports: [
 		ContactsComponent,

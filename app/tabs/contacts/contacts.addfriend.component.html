@@ -1,0 +1,14 @@
+<GridLayout rows="20 auto *">
+		<!-- >> clear-text-search-bar-html -->
+		<SearchBar row="1" hint="Search for a friend and press enter" (clear)="onClear($event)" (submit)="onSearch($event)"></SearchBar>
+		<ListView row="2" [items]="searchResults" class="list-group">
+				<ng-template let-contact="item">
+						<GridLayout columns="* 80 80" class="item" class="list-group-item">
+								<Label col="0" text="{{contact.user.name}}( id: {{contact.user.username}})" class="list-group-item-heading"></Label>
+								<Label col="1" text="{{contact.status == null ? '~': 'invited'}}" class="list-group-item-heading"></Label>
+								<Button col="2" class="link signIn" text="Invite" (tap)="onInviteFriend(contact)"></Button>
+						</GridLayout>
+				</ng-template>
+		</ListView>
+		<!-- << clear-text-search-bar-html -->
+</GridLayout>
