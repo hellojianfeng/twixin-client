@@ -20,4 +20,24 @@ TextField {
 .line-through {
   text-decoration: line-through;
 }
+.btn-icon-30 {
+  font-family: "FontAwesome";
+  font-size: 30;
+}
+.btn-icon-20 {
+  font-family: "FontAwesome";
+  font-size: 20;
+}
+.btn-icon-18 {
+  font-family: "FontAwesome";
+  font-size: 18;
+}
+.btn-icon-16 {
+  font-family: "FontAwesome";
+  font-size: 16;
+}
+.btn-icon-13 {
+  font-family: "FontAwesome";
+  font-size: 13;
+}
 

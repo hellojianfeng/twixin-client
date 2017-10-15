@@ -8,6 +8,7 @@ import { ContactService } from "./contact.service";
   selector: "tx-contacts",
 	moduleId: module.id,
 	templateUrl: "./contacts.component.html",
+	styleUrls: ["./contacts-common.css"],
 })
 
 export class ContactsComponent implements OnInit {
