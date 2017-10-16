@@ -1,28 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import {RouterExtensions} from 'nativescript-angular/router';
-import { ContactService } from './contact.service';
+import { Component, OnInit } from "@angular/core";
+import { RouterExtensions } from "nativescript-angular/router";
+import { ContactService } from "./contact.service";
 
-import { User } from '../../shared';
+import { User } from "../../shared";
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/concatAll';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/reduce';
+import "rxjs/add/operator/catch";
+import "rxjs/add/operator/concat";
+import "rxjs/add/operator/concatAll";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/reduce";
 
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Subject } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
-import { SearchBar } from 'ui/search-bar';
+import { SearchBar } from "ui/search-bar";
 
-import { EventData } from 'data/observable';
-import { NavigationButton } from 'ui/action-bar';
-import { Page } from 'ui/page';
+import { EventData } from "data/observable";
+import { NavigationButton } from "ui/action-bar";
+import { Page } from "ui/page";
 
 @Component({
-	selector: 'contact-add-friend',
+	selector: "tx-contacts-addfriend",
 	moduleId: module.id,
-	templateUrl: './contacts.addfriend.component.html'
+	templateUrl: "./contacts.addfriend.component.html"
 })
 
 export class ContactsAddFriendComponent implements OnInit {
@@ -38,45 +38,45 @@ export class ContactsAddFriendComponent implements OnInit {
 		){
 			this.newContact = new User();
 			this.navback = [
-				'/tabs',
-				{ outlets: { contactoutlet: ['contact'] } },
+				"/tabs",
+				{ outlets: { contactoutlet: ["contact"] } },
 				];
 		}
 
 	public ngOnInit(): void {
-	
+
 	}
 
 	public onSearch(args) {
 		const searchBar = args.object as SearchBar;
 		const searchValue = searchBar.text.toLowerCase();
 
-		if (searchValue !== '') {
+		if (searchValue !== "") {
 			this.$Contact.searchUser(searchValue).subscribe(
 				(res) => {
 					this.searchResults = res.map( o => {
-						return {user: o}
+						return {user: o};
 					});
 				},
 				(error) => {
 					const e = error.json();
 					alert(e.message);
 				},
-			)
+			);
 		}
 	}
 
 	public onInviteFriend(contact){
 		// console.log('this.space.uid:', this.space.uid);
 		this.$Contact.addContactUser(contact.user).subscribe(
-			() => { 
-				contact.status = 'invited'
+			() => {
+				contact.status = "invited";
 			},
 			(error) => {
         const e = error.json();
         alert(e.message);
     },
-		)
+		);
 	}
 
 }
