@@ -48,7 +48,11 @@ export class ContactsAddFriendComponent implements OnInit {
 	}
 
 	onBackButtonTap(): void {
-		this.$RouterExtensions.backToPreviousPage();
+		// this.$RouterExtensions.backToPreviousPage();
+		this.$RouterExtensions.navigate([
+			"/tabs",
+			{ outlets: { contactoutlet: ["contacts"] } },
+			]);
 }
 
 	public onSearch(args) {
