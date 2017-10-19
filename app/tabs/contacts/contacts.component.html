@@ -1,12 +1,10 @@
-<GridLayout orientation="vertical" rows="10,50,*">
-  <StackLayout row="1" orientation="vertical" ios:class="iosButtonsStacklayout" android:class="androidButtonsStacklayout">
-      <GridLayout columns="*,20,*,20" orientation="horizontal" horizontalAlignment="right">
-          <Button col="0" ios:class="iosButton" class="btn-icon-13" text="&#xf067; Add Friend" (tap)="onShowAddFriend()"></Button>
-          <Button col="2" ios:class="iosButton" class="btn-icon-13" text="&#xf067; Add Group" (tap)="onAddGroup()"></Button>
-      </GridLayout>
-  </StackLayout>
-
-  <ListView row="2" toggleActionbarTitle class="list-group" [items]="contacts | async " (itemTap)="onItemTap($event)" separatorColor="gray">
+<ActionBar title="Contacts">
+    <NavigationButton ios:visibility="collapsed"></NavigationButton>
+    <ActionItem icon="res://AddUser-Small" ios.position="right" (tap)="onAddFriend()"></ActionItem>
+    <ActionItem icon="res://AddUserGroup-Small" ios.position="right" (tap)="onAddGroup()"></ActionItem>
+</ActionBar>
+<GridLayout orientation="vertical" rows="10,*">
+  <ListView row="1" toggleActionbarTitle class="list-group" [items]="contacts | async " (itemTap)="onItemTap($event)" separatorColor="gray">
       <ng-template let-contact="item">
           <StackLayout class="list-group-item">
               <Label class="list-group-item-heading" [text]="contact.name"></Label>

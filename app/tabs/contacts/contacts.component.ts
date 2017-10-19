@@ -32,7 +32,7 @@ export class ContactsComponent implements OnInit {
 		const index = args.index;
 	}
 
-	public onShowAddFriend() {
+	public onAddFriend() {
 		this.router.navigate([
 			"/tabs",
 			{ outlets: { contactoutlet: ["contacts-addfriend"] } },

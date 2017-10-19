@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterExtensions } from "nativescript-angular/router";
 import { ContactService } from "./contact.service";
 
 import { User } from "../../shared";
@@ -18,6 +17,7 @@ import { SearchBar } from "ui/search-bar";
 import { EventData } from "data/observable";
 import { NavigationButton } from "ui/action-bar";
 import { Page } from "ui/page";
+import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
 @Component({
 	selector: "tx-contacts-addfriend",
@@ -33,9 +33,9 @@ export class ContactsAddFriendComponent implements OnInit {
 
 	public constructor(
 		private $Contact: ContactService,
-		private $router: RouterExtensions,
-		private page: Page,
-		){
+		private $PageRoute: PageRoute,
+		private $RouterExtensions: RouterExtensions
+		) {
 			this.newContact = new User();
 			this.navback = [
 				"/tabs",
@@ -46,6 +46,10 @@ export class ContactsAddFriendComponent implements OnInit {
 	public ngOnInit(): void {
 
 	}
+
+	onBackButtonTap(): void {
+		this.$RouterExtensions.backToPreviousPage();
+}
 
 	public onSearch(args) {
 		const searchBar = args.object as SearchBar;
@@ -66,7 +70,7 @@ export class ContactsAddFriendComponent implements OnInit {
 		}
 	}
 
-	public onInviteFriend(contact){
+	public onInviteFriend(contact) {
 		// console.log('this.space.uid:', this.space.uid);
 		this.$Contact.addContactUser(contact.user).subscribe(
 			() => {

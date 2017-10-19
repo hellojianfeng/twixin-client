@@ -1,3 +1,7 @@
+<ActionBar class="ActionBar" title="AddFriend">
+	<ActionItem icon="res://AddUser-Small" ios.position="right" (tap)="onAddFriend()"></ActionItem>
+	<ActionItem icon="res://BackArrow-Small" ios.position="left" (tap)="onBackButtonTap()"></ActionItem>
+</ActionBar>
 <GridLayout rows="20 auto *">
 		<!-- >> clear-text-search-bar-html -->
 		<SearchBar row="1" hint="Search for a friend and press enter" (clear)="onClear($event)" (submit)="onSearch($event)"></SearchBar>
