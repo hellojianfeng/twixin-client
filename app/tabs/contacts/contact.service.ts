@@ -6,6 +6,9 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/observable/throw";
 import "rxjs/add/operator/catch";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
+
 
 import { getString, setString } from "application-settings";
 
@@ -21,7 +24,7 @@ export class ContactService {
     headers.append("Authorization", "Bearer " + BackendService.token);
    }
 
-  public listContactGroup(){
+  public listContactGroup() {
 		return this.http.get(BackendService.apiUrl + "/ugroups/user", {headers})
     .map((res: Response) => res.json())
     .catch(this.__handleError);
@@ -65,14 +68,20 @@ export class ContactService {
 		);
 	}
 
-	public searchUser(text){
+	_searchUser(text) {
 
 		const oSearch = { search: text};
 
 		return this.http.post(BackendService.apiUrl + "/users/search", oSearch)
-		 .map((res: Response) => res.json())
-		 .catch(this.__handleError);
+		 .map((res: Response) => res.json());
 	}
+
+	public searchUsers(terms: Observable<string>) {
+    return terms.debounceTime(400)
+      .distinctUntilChanged()
+			.switchMap(term => this._searchUser(term))
+			.catch(this.__handleError);
+  }
 
 	private __handleError(err: Response | any){
 		return Observable.throw( JSON.stringify(err) || "Unknown Error");

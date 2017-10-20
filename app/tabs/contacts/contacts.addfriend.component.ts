@@ -22,7 +22,8 @@ import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 @Component({
 	selector: "tx-contacts-addfriend",
 	moduleId: module.id,
-	templateUrl: "./contacts.addfriend.component.html"
+	templateUrl: "./contacts.addfriend.component.html",
+	styleUrls: ["./contacts.addfriend.component.css"],
 })
 
 export class ContactsAddFriendComponent implements OnInit {
@@ -30,17 +31,30 @@ export class ContactsAddFriendComponent implements OnInit {
 	public newContact: User;
 	public contacts: any[];
 	public navback;
+	public searchTerm$ = new Subject<string>();
 
 	public constructor(
 		private $Contact: ContactService,
 		private $PageRoute: PageRoute,
-		private $RouterExtensions: RouterExtensions
+		private $RouterExtensions: RouterExtensions,
 		) {
 			this.newContact = new User();
 			this.navback = [
 				"/tabs",
 				{ outlets: { contactoutlet: ["contact"] } },
-				];
+			];
+			this.$Contact.searchUsers(this.searchTerm$)
+      .subscribe(
+				(results) => {
+        this.searchResults = results.map( o => {
+					return {user: o};
+				});
+				},
+				(error) => {
+					const e = error.json();
+					alert(e.message);
+				},
+			);
 		}
 
 	public ngOnInit(): void {
@@ -53,26 +67,12 @@ export class ContactsAddFriendComponent implements OnInit {
 			"/tabs",
 			{ outlets: { contactoutlet: ["contacts"] } },
 			]);
-}
-
-	public onSearch(args) {
-		const searchBar = args.object as SearchBar;
-		const searchValue = searchBar.text.toLowerCase();
-
-		if (searchValue !== "") {
-			this.$Contact.searchUser(searchValue).subscribe(
-				(res) => {
-					this.searchResults = res.map( o => {
-						return {user: o};
-					});
-				},
-				(error) => {
-					const e = error.json();
-					alert(e.message);
-				},
-			);
-		}
 	}
+
+	onTextChange(args) {
+		let searchBar = <SearchBar>args.object;
+	 	this.searchTerm$.next(searchBar.text);
+	 }
 
 	public onInviteFriend(contact) {
 		// console.log('this.space.uid:', this.space.uid);

@@ -1,17 +1,19 @@
 <ActionBar class="ActionBar" title="AddFriend">
 	<ActionItem icon="res://BackArrow-Small" ios.position="left" (tap)="onBackButtonTap()"></ActionItem>
 </ActionBar>
-<GridLayout rows="20 auto *">
-		<!-- >> clear-text-search-bar-html -->
-		<SearchBar row="1" hint="Search for a friend and press enter" (clear)="onClear($event)" (submit)="onSearch($event)"></SearchBar>
-		<ListView row="2" [items]="searchResults" class="list-group">
-				<ng-template let-contact="item">
-						<GridLayout columns="* 80 80" class="item" class="list-group-item">
-								<Label col="0" text="{{contact.user.name}}( id: {{contact.user.username}})" class="list-group-item-heading"></Label>
-								<Label col="1" text="{{contact.status == null ? '~': 'invited'}}" class="list-group-item-heading"></Label>
-								<Button col="2" class="link signIn" text="Invite" (tap)="onInviteFriend(contact)"></Button>
-						</GridLayout>
-				</ng-template>
-		</ListView>
-		<!-- << clear-text-search-bar-html -->
-</GridLayout>
+<StackLayout>
+	<StackLayout class="search-item">
+			<SearchBar hint="Search for a friend and press enter" (clear)="onClear($event)" (textChange)="onTextChange($event)"></SearchBar>
+	</StackLayout>
+	<ListView [items]="searchResults">
+		<ng-template let-contact="item" let-index="index">
+			<StackLayout>
+				<GridLayout rows="auto" columns="55 *" class="list-item" (tap)="onItemTap(item)">
+					<Image row="0" col="0" *ngIf="contact.user.thumbnail" [src]="contact.user.thumbnail" class="thumbnail"></Image>
+					<Label row="0" col="0" *ngIf="!contact.user.thumbnail" text="&#xf2be;" class="fa thumbnail-awesome"></Label>
+					<Label row="0" col="1" [text]="contact.user.name" class="contact-name"></Label>
+				</GridLayout>
+			</StackLayout>
+		</ng-template>
+	</ListView>
+<StackLayout>
