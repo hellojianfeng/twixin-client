@@ -22,6 +22,6 @@ export class UserService {
 		 * 2. should check user token each time call this function, if http token is same as saved token ,just return this currentUser
 		 * 3. if http token is different with saved token, should redirct to login page to login again and do step 1 again.
 		 */
-		return this.$Http.get("api/users/current");
+		return this.$Http.get("api/users/me");
 	}
 }

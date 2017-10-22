@@ -2,5 +2,8 @@
 .thumbnail { width:50; height:50; border-radius:25; vertical-align:center; text-align:center; }
 .thumbnail-awesome { font-family: "FontAwesome"; font-size:50; color:#b7b7b7; vertical-align:center; text-align:center; }
 .contact-name { font-size: 18; color: #000000; margin-left: 10; vertical-align:center; }
+.contact-description { font-size: 13; color: #000000; margin-left: 10; vertical-align:center; }
 ListView { separator-color:transparent; height:100%; }
-.search-item { margin:40px 0 0 0 }
+.btn-small {font-size: 12; margin: 5 8 5 8; height: 30; font-weight: bold; }
+.btn-green {background-color: rgb(9, 109, 9)}
+.btn-invited {background-color: gray}

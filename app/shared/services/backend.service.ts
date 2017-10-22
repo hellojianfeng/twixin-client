@@ -19,4 +19,12 @@ export class BackendService {
     setString("token", theToken);
   }
 
+  static get me(): any {
+    return JSON.parse(getString("me"));
+  }
+
+  static set me(meData: any) {
+    setString("me", JSON.stringify(meData));
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ContactService } from "./contact.service";
 
 import { User } from "../../shared";
+import { BackendService } from "../../shared";
 
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/concat";
@@ -19,6 +20,7 @@ import { NavigationButton } from "ui/action-bar";
 import { Page } from "ui/page";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
+
 @Component({
 	selector: "tx-contacts-addfriend",
 	moduleId: module.id,
@@ -29,10 +31,10 @@ import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 export class ContactsAddFriendComponent implements OnInit {
 	public searchResults;
 	public newContact: User;
-	public contacts: any[];
+	public contacts: any[] = [];
 	public navback;
 	public searchTerm$ = new Subject<string>();
-
+	
 	public constructor(
 		private $Contact: ContactService,
 		private $PageRoute: PageRoute,
@@ -47,7 +49,10 @@ export class ContactsAddFriendComponent implements OnInit {
       .subscribe(
 				(results) => {
         this.searchResults = results.map( o => {
-					return {user: o};
+					//if(o.id != BackendService.me._id)
+					//{//not invole self
+						return {user: o};
+					//}
 				});
 				},
 				(error) => {
@@ -74,11 +79,23 @@ export class ContactsAddFriendComponent implements OnInit {
 	 	this.searchTerm$.next(searchBar.text);
 	 }
 
-	public onInviteFriend(contact) {
+	public onInviteFriend(event, contact) {
 		// console.log('this.space.uid:', this.space.uid);
-		this.$Contact.addContactUser(contact.user).subscribe(
+		
+		contact.status = ContactService.status_invited;
+		/*this.searchResults.forEach(o => {
+			if(o.user.id == contact.user.id){
+				o = contact;
+			}
+		});
+		return this.searchResults;*/
+		
+		this.$Contact.addContactUser(contact).subscribe(
 			() => {
-				contact.status = "invited";
+				let btn = event.object;
+				btn.isEnabled = false;
+				btn.backgroundColor="black";
+				btn.text = "Invited";
 			},
 			(error) => {
         const e = error.json();

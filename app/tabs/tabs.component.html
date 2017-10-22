@@ -1,15 +1,15 @@
-<TabView #tabView class="tab-view" (selectedIndexChanged)="onSelectedIndexChanged($event)">
+<TabView #tabView class="page tab-view" (selectedIndexChanged)="onSelectedIndexChanged($event)">
   <StackLayout *tabItem="{title:'Inbox', iconSource:'res://icon-inbox'}">
       <!-- <app-inbox></app-inbox> -->
   </StackLayout>
 
   <GridLayout *tabItem="{title:'Outbox', iconSource:'res://icon-inbox'}"></GridLayout>
 
-  <GridLayout *tabItem="{title:'Contact', iconSource:'res://icon-user'}">
+  <GridLayout *tabItem="{title:'Contacts', iconSource:'res://icon-user'}">
       <router-outlet name="contactoutlet"></router-outlet>
   </GridLayout>
 
-  <GridLayout *tabItem="{title:'Settings', iconSource:'res://icon-user'}">
-      <router-outlet name="settingoutlet"></router-outlet>
+  <GridLayout *tabItem="{title:'Mine', iconSource:'res://icon-user'}">
+      <router-outlet name="myoutlet"></router-outlet>
   </GridLayout>
 </TabView>

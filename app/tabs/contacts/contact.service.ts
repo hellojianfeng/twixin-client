@@ -20,6 +20,9 @@ const apiUrl = BackendService.apiUrl;
 @Injectable()
 export class ContactService {
 
+	public static status_invited = "invited";
+	public static static_approved = "approved";
+
   constructor(private http: Http) {
     headers.append("Authorization", "Bearer " + BackendService.token);
    }
@@ -36,8 +39,7 @@ export class ContactService {
     .catch(this.__handleError);
 	}
 
-	public addContactUser(oUser){
-		const contact = { user: oUser.username};
+	public addContactUser(contact){
 
 		return this.http.post(BackendService.apiUrl + "/contacts", contact, {headers})
 		 .map((res: Response) => res.json())
@@ -81,7 +83,21 @@ export class ContactService {
       .distinctUntilChanged()
 			.switchMap(term => this._searchUser(term))
 			.catch(this.__handleError);
-  }
+	}
+	
+	public searchContacts(query: any){
+		let queryString:String;
+
+		if(query.status){
+			queryString+="status="+query.status;
+		}
+		let url = BackendService.apiUrl + "/contacts";
+		if(queryString){
+			url += "?"+queryString;
+		}
+		return this.http.get(url)
+		.map((res: Response) => res.json());
+	}
 
 	private __handleError(err: Response | any){
 		return Observable.throw( JSON.stringify(err) || "Unknown Error");

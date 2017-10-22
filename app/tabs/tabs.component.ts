@@ -68,6 +68,9 @@ export class TabsComponent implements OnInit {
             case 2:
                 this.router.navigate(["/tabs", { outlets: { contactoutlet: ["contacts"]}}]);
                 break;
+            case 3:
+                this.router.navigate(["/tabs", { outlets: { myoutlet: ["mine"]}}]);
+                break;
             }
     }
 

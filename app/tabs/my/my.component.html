@@ -1,0 +1,18 @@
+<ActionBar class="ActionBar" title="Mine">
+	
+</ActionBar>
+<StackLayout>
+	<ListView [items]="actions">
+		<ng-template let-action="item" let-index="index">
+			<StackLayout>
+				<GridLayout rows="auto" columns="auto * auto" class="list-item" (tap)="onItemTap(action)">
+					<Label row="0" col="0" text="&#xf08b;" class="fa thumbnail-awesome"></Label>
+					<GridLayout row="0" col="1" rows="20 18" columns="auto" class="list-item">
+							<Label row="0" col="0" [text]="action.name" class="action-name font-weight-bold"></Label>
+							<Label row="1" col="0" [text]="action.description" class="action-description"></Label>
+					</GridLayout>
+				</GridLayout>
+			</StackLayout>
+		</ng-template>
+	</ListView>
+<StackLayout>

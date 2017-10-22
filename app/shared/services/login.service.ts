@@ -45,12 +45,19 @@ export class LoginService {
     .map(response => response.json())
     .do(data => {
       BackendService.token = data.Result.access_token || data.Result.accessToken;
+      headers.append("Authorization", "Bearer " + BackendService.token);
+      this.http.get("api/users/me", {headers})
+      .map( response => response.json())
+      .do(data => {
+        BackendService.me = data.me;
+      })
     })
     .catch(this.handleErrors);
   }
 
   logoff() {
     BackendService.token = "";
+    BackendService.me = null;
   }
 
   resetPassword(email) {
