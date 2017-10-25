@@ -14,6 +14,8 @@ import { ContactService } from "./contact.service";
 export class ContactsComponent implements OnInit {
 	public contacts;
 	public navback;
+	public item1;
+	public title = "Contacts";
 
 	public constructor(
 		private routerExtensions: RouterExtensions,
@@ -22,6 +24,11 @@ export class ContactsComponent implements OnInit {
 	){}
 
 	public ngOnInit(): void {
+		this.item1 = {
+			icon: {
+				source: "res://AddUser-Small"
+			}
+		};
 		this.contacts = this.contactService.list();
 		this.navback = [
 			"/tabs",

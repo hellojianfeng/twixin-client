@@ -8,7 +8,11 @@ import { AppComponent } from "./app.component";
 import { setStatusBarColors, BackendService, LoginService } from "./shared";
 
 import { LoginModule } from "./login/login.module";
-import { TabsModule } from "./tabs/tabs.module";
+import { InboxModule } from "./inbox/inbox.module";
+import { OutboxModule } from "./outbox/outbox.module";
+import { ContactsModule } from "./contacts/contacts.module";
+import { SettingsModule } from "./settings/settings.module";
+// import { ToggleActionbarModule } from "./shared/directives/toggle-actionbar.module";
 
 setStatusBarColors();
 
@@ -24,7 +28,11 @@ setStatusBarColors();
     NativeScriptRouterModule,
     NativeScriptRouterModule.forRoot(appRoutes),
     LoginModule,
-    TabsModule,
+    InboxModule,
+    OutboxModule,
+    ContactsModule,
+    SettingsModule
+    // ToggleActionbarModule,
   ],
   declarations: [
       AppComponent,

@@ -12,7 +12,7 @@ import "rxjs/add/operator/distinctUntilChanged";
 
 import { getString, setString } from "application-settings";
 
-import { BackendService } from "../../shared";
+import { BackendService } from "../shared";
 
 const headers = new Headers();
 const apiUrl = BackendService.apiUrl;
@@ -84,16 +84,16 @@ export class ContactService {
 			.switchMap(term => this._searchUser(term))
 			.catch(this.__handleError);
 	}
-	
-	public searchContacts(query: any){
-		let queryString:String;
 
-		if(query.status){
-			queryString+="status="+query.status;
+	public searchContacts(query: any){
+		let queryString: String;
+
+		if (query.status){
+			queryString += "status=" + query.status;
 		}
 		let url = BackendService.apiUrl + "/contacts";
-		if(queryString){
-			url += "?"+queryString;
+		if (queryString){
+			url += "?" + queryString;
 		}
 		return this.http.get(url)
 		.map((res: Response) => res.json());

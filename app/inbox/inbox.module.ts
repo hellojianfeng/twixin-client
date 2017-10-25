@@ -1,19 +1,14 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { registerElement } from "nativescript-angular";
-
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NativeScriptUIListViewModule } from "nativescript-pro-ui/listview/angular";
 
-import { ContactsModule } from "./contacts/contacts.module";
-import { MyModule } from "./my/my.module";
-
-import { TabsComponent } from "./tabs.component";
-
-registerElement("Gradient", () => require("nativescript-gradient").Gradient);
-registerElement("pullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);
-import { tabsRouting } from "./tabs.routing";
+import { UserService } from "../shared/services/user.service";
+import { InboxComponent } from "./inbox.component";
+import { TxTabviewModule  } from "../shared/components/tx-tabview.module";
+// import { routes } from './setting.routing';
 
 @NgModule({
 	imports: [
@@ -21,18 +16,19 @@ import { tabsRouting } from "./tabs.routing";
 		NativeScriptFormsModule,
 		NativeScriptModule,
 		NativeScriptRouterModule,
-		tabsRouting,
-		ContactsModule,
-		MyModule
+		NativeScriptUIListViewModule,
+		TxTabviewModule
+		// ToggleActionbarModule,
+    // NativeScriptRouterModule.forChild(routes),
 	],
 	declarations: [
-		TabsComponent,
+		InboxComponent,
 	],
 	exports: [
-		TabsComponent,
 	],
 	providers: [
-
+		UserService,
 	],
 })
-export class TabsModule { }
+
+export class InboxModule { }

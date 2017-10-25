@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ContactService } from "./contact.service";
 
-import { User } from "../../shared";
-import { BackendService } from "../../shared";
+import { User } from "../shared";
+import { BackendService } from "../shared";
 
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/concat";
@@ -19,6 +19,7 @@ import { EventData } from "data/observable";
 import { NavigationButton } from "ui/action-bar";
 import { Page } from "ui/page";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
+import { resetActionbarItems } from "../shared/utils/actionbar-util";
 
 
 @Component({
@@ -34,7 +35,14 @@ export class ContactsAddFriendComponent implements OnInit {
 	public contacts: any[] = [];
 	public navback;
 	public searchTerm$ = new Subject<string>();
-	
+	public actionItems = [
+		{
+				icon: "res://BackArrow-Small",
+				ios: {position: "left"},
+				nav: ["/tabs", { outlets: { contactoutlet: ["contacts-addfriend"]}}]
+		}
+	];
+
 	public constructor(
 		private $Contact: ContactService,
 		private $PageRoute: PageRoute,
@@ -49,10 +57,10 @@ export class ContactsAddFriendComponent implements OnInit {
       .subscribe(
 				(results) => {
         this.searchResults = results.map( o => {
-					//if(o.id != BackendService.me._id)
-					//{//not invole self
+					// if(o.id != BackendService.me._id)
+					// {//not invole self
 						return {user: o};
-					//}
+					// }
 				});
 				},
 				(error) => {
@@ -63,7 +71,7 @@ export class ContactsAddFriendComponent implements OnInit {
 		}
 
 	public ngOnInit(): void {
-
+		resetActionbarItems(this.actionItems);
 	}
 
 	onBackButtonTap(): void {
@@ -81,7 +89,7 @@ export class ContactsAddFriendComponent implements OnInit {
 
 	public onInviteFriend(event, contact) {
 		// console.log('this.space.uid:', this.space.uid);
-		
+
 		contact.status = ContactService.status_invited;
 		/*this.searchResults.forEach(o => {
 			if(o.user.id == contact.user.id){
@@ -89,12 +97,12 @@ export class ContactsAddFriendComponent implements OnInit {
 			}
 		});
 		return this.searchResults;*/
-		
+
 		this.$Contact.addContactUser(contact).subscribe(
 			() => {
 				let btn = event.object;
 				btn.isEnabled = false;
-				btn.backgroundColor="black";
+				btn.backgroundColor = "black";
 				btn.text = "Invited";
 			},
 			(error) => {

@@ -5,12 +5,9 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptUIListViewModule } from "nativescript-pro-ui/listview/angular";
 
-// import { ToggleActionbarModule } from '../shared/directives/toggle-actionbar.module';
-import { ContactService } from "./contact.service";
-// import { SpaceService } from '../shared/services/space.service'
-import { UserService } from "../../shared/services/user.service";
-import { ContactsComponent } from "./contacts.component";
-import { ContactsAddFriendComponent } from "./contacts.addfriend.component";
+import { UserService } from "../shared/services/user.service";
+import { SettingsComponent } from "./settings.component";
+import { TxTabviewModule  } from "../shared/components/tx-tabview.module";
 
 // import { routes } from './setting.routing';
 
@@ -21,20 +18,18 @@ import { ContactsAddFriendComponent } from "./contacts.addfriend.component";
 		NativeScriptModule,
 		NativeScriptRouterModule,
 		NativeScriptUIListViewModule,
+		TxTabviewModule
 		// ToggleActionbarModule,
     // NativeScriptRouterModule.forChild(routes),
 	],
 	declarations: [
-		ContactsComponent,
-		ContactsAddFriendComponent,
+		SettingsComponent,
 	],
 	exports: [
-		ContactsComponent,
 	],
 	providers: [
 		UserService,
-		ContactService,
 	],
 })
 
-export class ContactsModule { }
+export class SettingsModule { }

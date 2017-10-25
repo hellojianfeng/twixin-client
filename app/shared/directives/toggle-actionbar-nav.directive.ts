@@ -7,7 +7,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "application";
 
 @Directive({
-    selector: "[grToggleActionbarNav]"
+    selector: "[txToggleActionbarNav]"
 })
 export class ToggleActionbarNavDirective implements OnInit {
     constructor(route: ActivatedRoute, private page: Page, private routerExtensions: RouterExtensions) {

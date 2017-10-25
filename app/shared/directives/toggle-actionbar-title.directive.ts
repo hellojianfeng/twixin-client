@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Page } from "ui/page";
 
 @Directive({
-    selector: "[grToggleActionbarTitle]"
+    selector: "[txToggleActionbarTitle]"
 })
 
 export class ToggleActionbarTitleDirective {

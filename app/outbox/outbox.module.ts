@@ -5,9 +5,9 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptUIListViewModule } from "nativescript-pro-ui/listview/angular";
 
-import { UserService } from "../../shared/services/user.service";
-import { MyComponent } from "./my.component";
-
+import { UserService } from "../shared/services/user.service";
+import { OutboxComponent } from "./outbox.component";
+import { TxTabviewModule  } from "../shared/components/tx-tabview.module";
 // import { routes } from './setting.routing';
 
 @NgModule({
@@ -17,18 +17,18 @@ import { MyComponent } from "./my.component";
 		NativeScriptModule,
 		NativeScriptRouterModule,
 		NativeScriptUIListViewModule,
+		TxTabviewModule
 		// ToggleActionbarModule,
     // NativeScriptRouterModule.forChild(routes),
 	],
 	declarations: [
-		MyComponent,
+		OutboxComponent,
 	],
 	exports: [
-		
 	],
 	providers: [
 		UserService,
 	],
 })
 
-export class MyModule { }
+export class OutboxModule { }

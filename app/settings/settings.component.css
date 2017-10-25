@@ -1,0 +1,6 @@
+.list-item { margin:1 0; padding:10; background-color: #f6f6f6; }
+.thumbnail { width:50; height:50; border-radius:25; vertical-align:center; text-align:center; }
+.thumbnail-awesome { font-family: "FontAwesome"; font-size:35; color:#b7b7b7; vertical-align:center; text-align:center; }
+.action-name { font-size: 18; color: #000000; margin-left: 10; vertical-align:center; }
+.action-description { font-size: 13; color: #000000; margin-left: 10; vertical-align:center; }
+ListView { separator-color:transparent; height:100%; }

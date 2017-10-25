@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
-import { User } from "../../shared";
-import { BackendService } from "../../shared";
+import { User } from "../shared";
+import { BackendService } from "../shared";
 
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/concat";
@@ -14,20 +14,27 @@ import { Observable } from "rxjs/Observable";
 
 import { EventData } from "data/observable";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
-import { LoginService, alert } from "../../shared";
+import { LoginService, alert } from "../shared";
+import { ResetActionbarItemsDirective } from "../shared/directives/reset-actionbar-items.directive";
 
 
 @Component({
-	selector: "tx-my",
+	selector: "tx-inbox",
 	moduleId: module.id,
-	templateUrl: "./my.component.html",
-	styleUrls: ["./my.component.css"],
+	templateUrl: "./inbox.component.html",
+	styleUrls: ["./inbox.component.css"],
 })
 
-export class MyComponent implements OnInit {
+export class InboxComponent implements OnInit {
 
-	public actions:any[];
-	
+	public actions: any[];
+	public actionItems = [
+		{
+				icon: "res://BackArrow-Small",
+				ios: {position: "right"}
+		}
+	];
+
 	public constructor(
 		private loginService: LoginService,
 		private router: RouterExtensions,
@@ -42,8 +49,8 @@ export class MyComponent implements OnInit {
 		}
 
 	public ngOnInit(): void {
-		
-	}	
+
+	}
 
 	onItemTap(action){
 		if (action.name === "Sign out"){

@@ -1,9 +1,4 @@
-<ActionBar title="Contacts">
-    <NavigationButton ios:visibility="collapsed"></NavigationButton>
-    <ActionItem icon="res://AddUser-Small" ios.position="right" (tap)="onAddFriend()"></ActionItem>
-    <ActionItem icon="res://AddUserGroup-Small" ios.position="right" (tap)="onAddGroup()"></ActionItem>
-</ActionBar>
-<GridLayout orientation="vertical" rows="10,*">
+<GridLayout txToggleActionbarTitle orientation="vertical" rows="10,*">
   <ListView row="1" toggleActionbarTitle class="list-group" [items]="contacts | async " (itemTap)="onItemTap($event)" separatorColor="gray">
       <ng-template let-contact="item">
           <StackLayout class="list-group-item">
