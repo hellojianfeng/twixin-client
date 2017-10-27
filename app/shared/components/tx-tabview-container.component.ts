@@ -2,6 +2,7 @@ import { Component, OnInit , EventEmitter, Input, Output, ElementRef, AfterViewI
 import { ChangedData, ChangeType, ObservableArray } from "data/observable-array";
 import { SelectedIndexChangedEventData, TabView, TabViewItem } from "tns-core-modules/ui/tab-view";
 import { Router } from "@angular/router";
+import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
 @Component({
   selector: "tx-tabview-container",
@@ -18,7 +19,7 @@ export class TxTabviewContainerComponent implements OnInit, AfterViewInit {
   public showContacts;
   public showSettings;
 
-  public constructor(private router: Router){}
+  public constructor(private router: RouterExtensions){}
 
 	public ngOnInit(): void {
     if (this.selectedTab === "inbox"){
@@ -47,20 +48,22 @@ export class TxTabviewContainerComponent implements OnInit, AfterViewInit {
     const tabView = <TabView>args.object;
     const selectedTabViewItem = tabView.items[args.newIndex];
 
-    if (selectedTabViewItem.title === "Inbox"){
-      this.router.navigate(["/inbox"]);
-    }
+    if (args.oldIndex !== -1 && args.oldIndex !== args.newIndex){
+      if (selectedTabViewItem.title === "Inbox"){
+        this.router.navigate(["/inbox"], {animated: false});
+      }
 
-    if (selectedTabViewItem.title === "Outbox"){
-      this.router.navigate(["/outbox"]);
-    }
+      if (selectedTabViewItem.title === "Outbox"){
+        this.router.navigate(["/outbox"], {animated: false});
+      }
 
-    if (selectedTabViewItem.title === "Contacts"){
-      this.router.navigate(["/contacts"]);
-    }
+      if (selectedTabViewItem.title === "Contacts"){
+        this.router.navigate(["/contacts"], {animated: false});
+      }
 
-    if (selectedTabViewItem.title === "Settings"){
-      this.router.navigate(["/settings"]);
+      if (selectedTabViewItem.title === "Settings"){
+        this.router.navigate(["/settings"], {animated: false});
+      }
     }
 }
 

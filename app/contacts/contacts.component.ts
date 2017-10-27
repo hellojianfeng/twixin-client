@@ -24,32 +24,22 @@ export class ContactsComponent implements OnInit {
 	){}
 
 	public ngOnInit(): void {
-		this.item1 = {
-			icon: {
-				source: "res://AddUser-Small"
-			}
-		};
 		this.contacts = this.contactService.list();
-		this.navback = [
-			"/tabs",
-			];
-		}
+	}
 
 	public onItemTap(args) {
 		const index = args.index;
 	}
 
 	public onAddFriend() {
-		this.router.navigate([
-			"/tabs",
-			{ outlets: { contactoutlet: ["contacts-addfriend"] } },
+		this.routerExtensions.navigate([
+			"contacts/addfriend"
 			]);
 	}
 
 	public onAddGroup() {
 		this.router.navigate([
-			"/tabs",
-			{ outlets: { contactoutlet: ["addgroup"] } },
+			"/tabs"
 			]);
 	}
 

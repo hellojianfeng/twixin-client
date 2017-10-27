@@ -14,17 +14,16 @@ import { ContactsAddFriendComponent } from "./contacts.addfriend.component";
 
 import { TxTabviewModule  } from "../shared/components/tx-tabview.module";
 
-// import { routes } from './setting.routing';
+import { routes } from "./contacts.routing";
 
 @NgModule({
 	imports: [
 		NativeScriptHttpModule,
 		NativeScriptFormsModule,
 		NativeScriptModule,
-		NativeScriptRouterModule,
 		NativeScriptUIListViewModule,
-		TxTabviewModule
-		// ToggleActionbarModule,
+		TxTabviewModule,
+		NativeScriptRouterModule,
     // NativeScriptRouterModule.forChild(routes),
 	],
 	declarations: [

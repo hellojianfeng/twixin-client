@@ -17,5 +17,8 @@ export const appRoutes = [
   { path: "inbox", component: InboxComponent, data: { title: "Inbox" }},
   { path: "outbox", component: OutboxComponent, data: { title: "Outbox" }},
   { path: "contacts", component: ContactsComponent, data: { title: "Contacts" }},
+  { path: "contacts/addfriend", component: ContactsAddFriendComponent },
+  { path: "contacts", loadChildren: "./contacts/contacts.module#ContactsModule", data: { title: "Contacts" }},
+  // { path: "contacts", redirectTo: "/contacts/list", pathMatch: "full", data: { title: "Contacts" }},
   { path: "settings", component: SettingsComponent, data: { title: "Settings" }},
 ];

@@ -71,14 +71,12 @@ export class ContactsAddFriendComponent implements OnInit {
 		}
 
 	public ngOnInit(): void {
-		resetActionbarItems(this.actionItems);
 	}
 
-	onBackButtonTap(): void {
+	onTapBackButton(): void {
 		// this.$RouterExtensions.backToPreviousPage();
 		this.$RouterExtensions.navigate([
-			"/tabs",
-			{ outlets: { contactoutlet: ["contacts"] } },
+			"/contacts"
 			]);
 	}
 

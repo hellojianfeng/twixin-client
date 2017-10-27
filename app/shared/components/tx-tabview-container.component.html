@@ -1,17 +1,17 @@
 <TabView #tabView class="tab-view" (selectedIndexChanged)="onSelectedIndexChanged($event)">
   <StackLayout *tabItem="{title:'Inbox', iconSource:'res://icon-inbox'}">
-      <ng-content select="[inbox]"></ng-content>
+      <ng-content select="[tab=inbox]"></ng-content>
   </StackLayout>
 
   <GridLayout *tabItem="{title:'Outbox', iconSource:'res://icon-inbox'}">
-    <ng-content select="[outbox]"></ng-content>
+    <ng-content select="[tab=outbox]"></ng-content>
   </GridLayout>
 
   <GridLayout *tabItem="{title:'Contacts', iconSource:'res://icon-user'}">
-    
+    <ng-content select="[tab=contacts]"></ng-content>
   </GridLayout>
 
   <GridLayout *tabItem="{title:'Settings', iconSource:'res://icon-user'}">
-    
+    <ng-content select="[tab=settings]"></ng-content>
   </GridLayout>
 </TabView>

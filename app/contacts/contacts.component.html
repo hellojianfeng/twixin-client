@@ -1,9 +1,16 @@
-<GridLayout txToggleActionbarTitle orientation="vertical" rows="10,*">
-  <ListView row="1" toggleActionbarTitle class="list-group" [items]="contacts | async " (itemTap)="onItemTap($event)" separatorColor="gray">
-      <ng-template let-contact="item">
-          <StackLayout class="list-group-item">
-              <Label class="list-group-item-heading" [text]="contact.name"></Label>
-          </StackLayout>
-      </ng-template>
-  </ListView>
-</GridLayout>
+<ActionBar title="Contacts">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+    <ActionItem icon="res://AddUser-Small" ios.position="right" (tap)="onAddFriend()"></ActionItem>
+    <ActionItem icon="res://AddUserGroup-Small" ios.position="right"></ActionItem>
+</ActionBar>
+<tx-tabview-container selectedTab="contacts">
+    <GridLayout tab="contacts" orientation="vertical" rows="10,*">
+        <ListView row="1" toggleActionbarTitle class="list-group" [items]="contacts | async " (itemTap)="onItemTap($event)" separatorColor="gray">
+            <ng-template let-contact="item">
+                <StackLayout class="list-group-item">
+                    <Label class="list-group-item-heading" [text]="contact.name"></Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+</tx-tabview-container>
