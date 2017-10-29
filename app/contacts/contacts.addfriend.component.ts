@@ -31,10 +31,13 @@ import { resetActionbarItems } from "../shared/utils/actionbar-util";
 
 export class ContactsAddFriendComponent implements OnInit {
 	public searchResults;
+	public isCleared = false;
+	public pendings;
 	public newContact: User;
 	public contacts: any[] = [];
 	public navback;
 	public searchTerm$ = new Subject<string>();
+	public showSearchResult = false;
 	public actionItems = [
 		{
 				icon: "res://BackArrow-Small",
@@ -53,10 +56,18 @@ export class ContactsAddFriendComponent implements OnInit {
 				"/tabs",
 				{ outlets: { contactoutlet: ["contact"] } },
 			];
+			const that = this;
 			this.$Contact.searchUsers(this.searchTerm$)
       .subscribe(
 				(results) => {
-        this.searchResults = results.map( o => {
+				if(that.isCleared){
+					that.showSearchResult = false;
+					that.isCleared = false;
+				} else {
+					that.showSearchResult = true;
+				}
+				
+        that.searchResults = results.map( o => {
 					// if(o.id != BackendService.me._id)
 					// {//not invole self
 						return {user: o};
@@ -71,6 +82,16 @@ export class ContactsAddFriendComponent implements OnInit {
 		}
 
 	public ngOnInit(): void {
+		const that = this;
+		this.$Contact.listContactUser({status: ContactService.status_pending_friend}).subscribe(
+			results => {
+				that.pendings = results;
+			},
+			error => {
+				const e = error.json();
+				alert(e.message);
+			}
+		)
 	}
 
 	onTapBackButton(): void {
@@ -84,6 +105,10 @@ export class ContactsAddFriendComponent implements OnInit {
 		let searchBar = <SearchBar>args.object;
 	 	this.searchTerm$.next(searchBar.text);
 	 }
+
+	onClear(args){
+		this.isCleared = true;
+	}
 
 	public onInviteFriend(event, contact) {
 		// console.log('this.space.uid:', this.space.uid);

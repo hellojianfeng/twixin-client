@@ -5,10 +5,10 @@
 		<StackLayout>
 				<SearchBar hint="Search for a friend" (clear)="onClear($event)" (textChange)="onTextChange($event)"></SearchBar>
 		</StackLayout>
-		<ListView [items]="searchResults">
+		<ListView  *ngIf="showSearchResult" [items]="searchResults">
 			<ng-template let-contact="item" let-index="index">
 				<StackLayout>
-					<GridLayout rows="auto" columns="auto * auto" class="list-item" (tap)="onItemTap(item)">
+					<GridLayout rows="auto" columns="auto * auto" class="list-item">
 						<Image row="0" col="0" *ngIf="contact.user.thumbnail" [src]="contact.user.thumbnail" class="thumbnail"></Image>
 						<Label row="0" col="0" *ngIf="!contact.user.thumbnail" text="&#xf2be;" class="fa thumbnail-awesome"></Label>
 						<GridLayout row="0" col="1" rows="20 18" columns="auto" class="list-item">
@@ -16,6 +16,21 @@
 							<Label row="1" col="0" text="description for user" class="contact-description"></Label>
 						</GridLayout>
 						<Button row="0" col="2" text="invite" (tap)="onInviteFriend($event,contact)" class="btn btn-primary btn-rounded-sm btn-small"></Button>
+					</GridLayout>
+				</StackLayout>
+			</ng-template>
+		</ListView>
+		<ListView *ngIf="!showSearchResult" [items]="pendings">
+			<ng-template let-contact="item" let-index="index">
+				<StackLayout>
+					<GridLayout rows="auto" columns="auto * auto" class="list-item">
+						<Image row="0" col="0" *ngIf="contact.user.thumbnail" [src]="contact.owner.thumbnail" class="thumbnail"></Image>
+						<Label row="0" col="0" *ngIf="!contact.user.thumbnail" text="&#xf2be;" class="fa thumbnail-awesome"></Label>
+						<GridLayout row="0" col="1" rows="20 18" columns="auto" class="list-item">
+							<Label row="0" col="0" [text]="contact.user.name" class="contact-name font-weight-bold"></Label>
+							<Label row="1" col="0" text="waiting for approve" class="contact-description"></Label>
+						</GridLayout>
+						<Button row="0" col="2" text="confirm" (tap)="onConfirmFriend($event,contact)" class="btn btn-primary btn-rounded-sm btn-small"></Button>
 					</GridLayout>
 				</StackLayout>
 			</ng-template>

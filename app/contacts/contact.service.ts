@@ -21,7 +21,8 @@ const apiUrl = BackendService.apiUrl;
 export class ContactService {
 
 	public static status_invited = "invited";
-	public static static_approved = "approved";
+	public static status_confirmed = "confirmed";
+	public static status_pending_friend= "pending_for_confirm";
 
   constructor(private http: Http) {
     headers.append("Authorization", "Bearer " + BackendService.token);
@@ -33,8 +34,18 @@ export class ContactService {
     .catch(this.__handleError);
 	}
 
-	public listContactUser(){
-		return this.http.get(BackendService.apiUrl + "/contacts", {headers})
+	public listContactUser(query?){
+		let sQuery = '';
+		if(typeof query === 'string'){
+			sQuery = query;
+		}
+		if(typeof query === 'object'){
+			for(const key in query){
+				sQuery = sQuery === '' ? '?'+sQuery: '&'+sQuery;
+				sQuery += key + '=' + query[key];
+			}
+		}
+		return this.http.get(BackendService.apiUrl + "/contacts"+sQuery, {headers})
     .map((res: Response) => res.json())
     .catch(this.__handleError);
 	}
