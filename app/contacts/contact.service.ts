@@ -35,17 +35,17 @@ export class ContactService {
 	}
 
 	public listContactUser(query?){
-		let sQuery = '';
-		if(typeof query === 'string'){
+		let sQuery = "";
+		if (typeof query === "string"){
 			sQuery = query;
 		}
-		if(typeof query === 'object'){
-			for(const key in query){
-				sQuery = sQuery === '' ? '?'+sQuery: '&'+sQuery;
-				sQuery += key + '=' + query[key];
+		if (typeof query === "object"){
+			for (const key in query){
+				sQuery = sQuery === "" ? "?" + sQuery : "&" + sQuery;
+				sQuery += key + "=" + query[key];
 			}
 		}
-		return this.http.get(BackendService.apiUrl + "/contacts"+sQuery, {headers})
+		return this.http.get(BackendService.apiUrl + "/contacts" + sQuery, {headers})
     .map((res: Response) => res.json())
     .catch(this.__handleError);
 	}
@@ -86,7 +86,18 @@ export class ContactService {
 		const oSearch = { search: text};
 
 		return this.http.post(BackendService.apiUrl + "/users/search", oSearch)
-		 .map((res: Response) => res.json());
+		 .map((res: Response) => {
+			 const users = res.json();
+			 // remove me from search list
+			 const me = BackendService.me;
+			 return users.filter( o => {
+				 if (me && o._id !== me._id) {
+					 return true;
+				 } else {
+					 return false;
+				 }
+			 });
+			});
 	}
 
 	public searchUsers(terms: Observable<string>) {
