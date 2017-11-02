@@ -4,6 +4,8 @@ import { ContactService } from "./contact.service";
 import { User } from "../shared";
 import { BackendService } from "../shared";
 
+import * as colorModule from "tns-core-modules/color";
+
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/concat";
 import "rxjs/add/operator/concatAll";
@@ -120,13 +122,33 @@ export class ContactsAddFriendComponent implements OnInit {
 			}
 		});
 		return this.searchResults;*/
+		const Color = colorModule.Color;
 
 		this.$Contact.addContactUser(contact).subscribe(
 			() => {
 				let btn = event.object;
 				btn.isEnabled = false;
-				btn.backgroundColor = "black";
+				btn.backgroundColor = new Color('grey');
 				btn.text = "Invited";
+			},
+			(error) => {
+        const e = error.json();
+        alert(e.message);
+    },
+		);
+	}
+
+	public onConfirmFriend(event, contact) {
+		// console.log('this.space.uid:', this.space.uid);
+
+		contact.status = ContactService.status_confirmed;
+
+		this.$Contact.addContactUser(contact).subscribe(
+			() => {
+				let btn = event.object;
+				btn.isEnabled = false;
+				btn.backgroundColor = new colorModule.Color('grey');
+				btn.text = "Confirmed";
 			},
 			(error) => {
         const e = error.json();
