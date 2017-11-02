@@ -32,6 +32,7 @@ export class LoginService {
   login(user: User) {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
+    const that = this;
 
     return this.http.post(
       BackendService.apiUrl + "oauth/token",
@@ -42,15 +43,15 @@ export class LoginService {
       },
       { headers: headers }
     )
-    .map(response => response.json())
-    .do(data => {
+    .switchMap(response => {
+      const data = response.json();
       BackendService.token = data.Result.access_token || data.Result.accessToken;
       headers.append("Authorization", "Bearer " + BackendService.token);
-      this.http.get("api/users/me", {headers})
-      .map( response => response.json())
-      .do(data => {
+      return that.http.get(BackendService.apiUrl + "users/me", {headers})
+      .map(response => {
+        const data = response.json();
         BackendService.me = data.me;
-      })
+      });
     })
     .catch(this.handleErrors);
   }

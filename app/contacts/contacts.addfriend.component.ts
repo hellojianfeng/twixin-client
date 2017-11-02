@@ -62,13 +62,13 @@ export class ContactsAddFriendComponent implements OnInit {
 			this.$Contact.searchUsers(this.searchTerm$)
       .subscribe(
 				(results) => {
-				if(that.isCleared){
+				if (that.isCleared) {
 					that.showSearchResult = false;
 					that.isCleared = false;
 				} else {
 					that.showSearchResult = true;
 				}
-				
+
         that.searchResults = results.map( o => {
 					// if(o.id != BackendService.me._id)
 					// {//not invole self
@@ -93,7 +93,7 @@ export class ContactsAddFriendComponent implements OnInit {
 				const e = error.json();
 				alert(e.message);
 			}
-		)
+		);
 	}
 
 	onTapBackButton(): void {
