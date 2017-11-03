@@ -40,13 +40,7 @@ export class ContactsAddFriendComponent implements OnInit {
 	public navback;
 	public searchTerm$ = new Subject<string>();
 	public showSearchResult = false;
-	public actionItems = [
-		{
-				icon: "res://BackArrow-Small",
-				ios: {position: "left"},
-				nav: ["/tabs", { outlets: { contactoutlet: ["contacts-addfriend"]}}]
-		}
-	];
+	public invitedContacts;
 
 	public constructor(
 		private $Contact: ContactService,
@@ -85,15 +79,22 @@ export class ContactsAddFriendComponent implements OnInit {
 
 	public ngOnInit(): void {
 		const that = this;
-		this.$Contact.listContactUser({status: ContactService.status_pending_friend}).subscribe(
-			results => {
-				that.pendings = results;
+		this.pendings = this.$Contact.listContactUser({status: ContactService.status_pending_friend});
+		this.invitedContacts = this.$Contact.listContactUser({status: ContactService.status_invited});
+		/*
+		this.$Contact.listContactUser({status: ContactService.status_pending_friend})
+		.switchMap( results => {
+			that.pendings = results;
+			return this.$Contact.listContactUser({status: ContactService.status_invited});
+		}).subscribe (
+			(results) => {
+				that.invitedContacts = results;
 			},
-			error => {
+			(error) => {
 				const e = error.json();
 				alert(e.message);
-			}
-		);
+			},
+	);*/
 	}
 
 	onTapBackButton(): void {
@@ -128,7 +129,7 @@ export class ContactsAddFriendComponent implements OnInit {
 			() => {
 				let btn = event.object;
 				btn.isEnabled = false;
-				btn.backgroundColor = new Color('grey');
+				btn.backgroundColor = new Color("grey");
 				btn.text = "Invited";
 			},
 			(error) => {
@@ -147,7 +148,7 @@ export class ContactsAddFriendComponent implements OnInit {
 			() => {
 				let btn = event.object;
 				btn.isEnabled = false;
-				btn.backgroundColor = new colorModule.Color('grey');
+				btn.backgroundColor = new colorModule.Color("grey");
 				btn.text = "Confirmed";
 			},
 			(error) => {

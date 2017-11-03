@@ -35,6 +35,7 @@ export class ContactService {
 	}
 
 	public listContactUser(query?){
+		query = query || "status=confirmed";
 		let sQuery = "";
 		if (typeof query === "string"){
 			sQuery = query;

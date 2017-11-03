@@ -24,7 +24,7 @@ export class ContactsComponent implements OnInit {
 	){}
 
 	public ngOnInit(): void {
-		this.contacts = this.contactService.list();
+		this.contacts = this.contactService.listContactUser();
 	}
 
 	public onItemTap(args) {
