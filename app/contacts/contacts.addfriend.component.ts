@@ -48,10 +48,6 @@ export class ContactsAddFriendComponent implements OnInit {
 		private $RouterExtensions: RouterExtensions,
 		) {
 			this.newContact = new User();
-			this.navback = [
-				"/tabs",
-				{ outlets: { contactoutlet: ["contact"] } },
-			];
 			const that = this;
 			this.$Contact.searchUsers(this.searchTerm$)
       .subscribe(
@@ -63,12 +59,20 @@ export class ContactsAddFriendComponent implements OnInit {
 					that.showSearchResult = true;
 				}
 
-        that.searchResults = results.map( o => {
-					// if(o.id != BackendService.me._id)
-					// {//not invole self
-						return {user: o};
-					// }
-				});
+				const invited = [];
+				that.invitedContacts.forEach( o => {
+					invited.push(o.user._id);
+				})
+
+        that.searchResults = results.filter( o => {
+					if(invited.indexOf(o._id)===-1){
+						return true;
+					} else {
+						return false;
+					}
+				}).map( o => {
+					return {user: o}
+				})
 				},
 				(error) => {
 					const e = error.json();
@@ -79,9 +83,9 @@ export class ContactsAddFriendComponent implements OnInit {
 
 	public ngOnInit(): void {
 		const that = this;
-		this.pendings = this.$Contact.listContactUser({status: ContactService.status_pending_friend});
-		this.invitedContacts = this.$Contact.listContactUser({status: ContactService.status_invited});
-		/*
+		//this.pendings = this.$Contact.listContactUser({status: ContactService.status_pending_friend});
+		//this.invitedContacts = this.$Contact.listContactUser({status: ContactService.status_invited});
+		
 		this.$Contact.listContactUser({status: ContactService.status_pending_friend})
 		.switchMap( results => {
 			that.pendings = results;
@@ -89,12 +93,13 @@ export class ContactsAddFriendComponent implements OnInit {
 		}).subscribe (
 			(results) => {
 				that.invitedContacts = results;
+				that.contacts = that.pendings.concat(that.invitedContacts);
 			},
 			(error) => {
 				const e = error.json();
 				alert(e.message);
 			},
-	);*/
+	);
 	}
 
 	onTapBackButton(): void {

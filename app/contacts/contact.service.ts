@@ -46,6 +46,7 @@ export class ContactService {
 				sQuery += key + "=" + query[key];
 			}
 		}
+		sQuery = sQuery.indexOf('?')===0?sQuery:'?'+sQuery;
 		return this.http.get(BackendService.apiUrl + "/contacts" + sQuery, {headers})
     .map((res: Response) => res.json())
     .catch(this.__handleError);

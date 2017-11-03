@@ -6,4 +6,5 @@
 ListView { separator-color:transparent; height:100%; }
 .btn-small {font-size: 12; margin: 5 8 5 8; height: 30; font-weight: bold; }
 .btn-green {background-color: rgb(9, 109, 9)}
+.btn-gray {background-color: rgb(207, 216, 207); color: rgb(14, 13, 13)}
 .btn-invited {background-color: gray}
