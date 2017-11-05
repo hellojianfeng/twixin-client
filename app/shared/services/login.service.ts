@@ -11,7 +11,11 @@ import { BackendService } from "./backend.service";
 
 @Injectable()
 export class LoginService {
-  constructor(private http: Http) { }
+  public headers;
+  constructor(private http: Http) { 
+    this.headers = new Headers();
+    this.headers.append("Authorization", "Bearer " + BackendService.token);
+  }
 
   register(user: User) {
     let headers = new Headers();
@@ -72,6 +76,15 @@ export class LoginService {
       }),
       { headers: headers }
     ).catch(this.handleErrors);
+  }
+
+  isAuthorized(){
+    this.headers = new Headers();
+    this.headers.append("Authorization", "Bearer " + BackendService.token);
+    return this.http.get(
+      BackendService.apiUrl + 'users/me',
+      { headers: this.headers }
+    )
   }
 
   handleErrors(error: Response) {

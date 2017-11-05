@@ -13,8 +13,8 @@ export const authProviders = [
 ];
 
 export const appRoutes = [
-  { path: "", redirectTo: "/inbox", pathMatch: "full", data: {title: "Inbox"}},
-  { path: "inbox", component: InboxComponent, data: { title: "Inbox" }},
+  { path: "", redirectTo: "/inbox", pathMatch: "full", data: {title: "Inbox"},canActivate: authProviders,},
+  { path: "inbox", component: InboxComponent, data: { title: "Inbox" },canActivate: authProviders},
   { path: "outbox", component: OutboxComponent, data: { title: "Outbox" }},
   { path: "contacts", component: ContactsComponent, data: { title: "Contacts" }},
   { path: "contacts/addfriend", component: ContactsAddFriendComponent },
