@@ -12,7 +12,7 @@ import { BackendService } from "./backend.service";
 @Injectable()
 export class LoginService {
   public headers;
-  constructor(private http: Http) { 
+  constructor(private http: Http) {
     this.headers = new Headers();
     this.headers.append("Authorization", "Bearer " + BackendService.token);
   }
@@ -82,9 +82,9 @@ export class LoginService {
     this.headers = new Headers();
     this.headers.append("Authorization", "Bearer " + BackendService.token);
     return this.http.get(
-      BackendService.apiUrl + 'users/me',
+      BackendService.apiUrl + "users/me",
       { headers: this.headers }
-    )
+    );
   }
 
   handleErrors(error: Response) {

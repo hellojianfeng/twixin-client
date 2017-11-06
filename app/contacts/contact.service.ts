@@ -9,12 +9,10 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
 
-
 import { getString, setString } from "application-settings";
 
 import { BackendService } from "../shared";
 
-const headers = new Headers();
 const apiUrl = BackendService.apiUrl;
 
 @Injectable()
@@ -25,10 +23,12 @@ export class ContactService {
 	public static status_pending_friend= "pending_for_confirm";
 
   constructor(private http: Http) {
-    headers.append("Authorization", "Bearer " + BackendService.token);
+
    }
 
   public listContactGroup() {
+		const headers = new Headers();
+		headers.append("Authorization", "Bearer " + BackendService.token);
 		return this.http.get(BackendService.apiUrl + "/ugroups/user", {headers})
     .map((res: Response) => res.json())
     .catch(this.__handleError);
@@ -46,14 +46,17 @@ export class ContactService {
 				sQuery += key + "=" + query[key];
 			}
 		}
-		sQuery = sQuery.indexOf('?')===0?sQuery:'?'+sQuery;
+		sQuery = sQuery.indexOf("?") === 0 ? sQuery : "?" + sQuery;
+		const headers = new Headers();
+		headers.append("Authorization", "Bearer " + BackendService.token);
 		return this.http.get(BackendService.apiUrl + "/contacts" + sQuery, {headers})
     .map((res: Response) => res.json())
     .catch(this.__handleError);
 	}
 
 	public addContactUser(contact){
-
+		const headers = new Headers();
+		headers.append("Authorization", "Bearer " + BackendService.token);
 		return this.http.post(BackendService.apiUrl + "/contacts", contact, {headers})
 		 .map((res: Response) => res.json())
 		 .catch(this.__handleError);

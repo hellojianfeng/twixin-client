@@ -10,11 +10,11 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private loginService: LoginService) { }
 
   canActivate() {
-    if (BackendService.isLoggedIn()) {
-      //if(this.router.url === '/'){
+    // if (BackendService.isLoggedIn()) {
+      // if(this.router.url === '/'){
         return this.loginService.isAuthorized()
         .map(res => {
-          if(res.ok){
+          if (res.ok){
             return true;
           } else {
             return false;
@@ -22,12 +22,12 @@ export class AuthGuard implements CanActivate {
         }).catch( error => {
           this.router.navigate(["/login"]);
           return Observable.of(false);
-        })
-    }
-    else {
-      this.router.navigate(["/login"]);
-      return false;
-    }
+        });
+    // }
+    // else {
+    //  this.router.navigate(["/login"]);
+    //  return false;
+    // }
   }
 }
 
