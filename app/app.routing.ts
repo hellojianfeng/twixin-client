@@ -7,18 +7,20 @@ import { InboxComponent } from "./inbox/inbox.component";
 import { OutboxComponent } from "./outbox/outbox.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { ContactsAddFriendComponent } from "./contacts/contacts.addfriend.component";
+import { ContactsAddGroupComponent } from "./contacts/contacts.addgroup.component";
 
 export const authProviders = [
   AuthGuard
 ];
 
 export const appRoutes = [
-  { path: "", redirectTo: "/inbox", pathMatch: "full", data: {title: "Inbox"},canActivate: authProviders,},
-  { path: "inbox", component: InboxComponent, data: { title: "Inbox" },canActivate: authProviders},
+  { path: "", redirectTo: "/inbox", pathMatch: "full", data: {title: "Inbox"}, canActivate: authProviders, },
+  { path: "inbox", component: InboxComponent, data: { title: "Inbox" }, canActivate: authProviders},
   { path: "outbox", component: OutboxComponent, data: { title: "Outbox" }},
   { path: "contacts", component: ContactsComponent, data: { title: "Contacts" }},
   { path: "contacts/addfriend", component: ContactsAddFriendComponent },
-  { path: "contacts", loadChildren: "./contacts/contacts.module#ContactsModule", data: { title: "Contacts" }},
+  { path: "contacts/addgroup", component: ContactsAddGroupComponent },
+  // { path: "contacts", loadChildren: "./contacts/contacts.module#ContactsModule", data: { title: "Contacts" }},
   // { path: "contacts", redirectTo: "/contacts/list", pathMatch: "full", data: { title: "Contacts" }},
   { path: "settings", component: SettingsComponent, data: { title: "Settings" }},
 ];

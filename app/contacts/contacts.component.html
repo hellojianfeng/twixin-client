@@ -1,7 +1,7 @@
 <ActionBar title="Contacts">
     <NavigationButton visibility="collapsed"></NavigationButton>
     <ActionItem icon="res://AddUser-Small" ios.position="right" (tap)="onAddFriend()"></ActionItem>
-    <ActionItem icon="res://AddUserGroup-Small" ios.position="right"></ActionItem>
+    <ActionItem icon="res://AddUserGroup-Small" ios.position="right" (tap)="onAddGroup()"></ActionItem>
 </ActionBar>
 <tx-tabview-container selectedTab="contacts">
     <StackLayout tab="contacts">

@@ -5,13 +5,13 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { ContactService } from "./contact.service";
 
 @Component({
-  selector: "tx-contacts",
+  selector: "tx-contacts-add-group",
 	moduleId: module.id,
-	templateUrl: "./contacts.component.html",
+	templateUrl: "./contacts.addgroup.component.html",
 	styleUrls: ["./contacts-common.css"],
 })
 
-export class ContactsComponent implements OnInit {
+export class ContactsAddGroupComponent implements OnInit {
 	public contacts;
 	public navback;
 	public item1;
@@ -21,26 +21,19 @@ export class ContactsComponent implements OnInit {
 		private routerExtensions: RouterExtensions,
 		private router: Router,
 		private contactService: ContactService,
-	){}
+	) {}
 
 	public ngOnInit(): void {
-		this.contacts = this.contactService.listContactUser();
+		this.contactService.listContactUser().subscribe(
+			(results) => this.contacts = results,
+			(error) => {
+				return error;
+			}
+		);
 	}
 
 	public onItemTap(args) {
 		const index = args.index;
-	}
-
-	public onAddFriend() {
-		this.routerExtensions.navigate([
-			"contacts/addfriend"
-			]);
-	}
-
-	public onAddGroup() {
-		this.routerExtensions.navigate([
-			"contacts/addgroup"
-			]);
 	}
 
 }
